@@ -1,0 +1,31 @@
+import random
+
+from IPython.display import clear_output
+
+def myfunc():
+    '''
+    DOCSTRING: User will be asked to input an integer in the range 1-100. User will be notified if 
+    inputed integer is 10 units or closer to a randomly selected integer by a 'WARM!' If the
+    numbers are further away, output will be 'COLD!' From there, user will input more integers and 
+    if said numbers are closer to the random integer, a 'WARMER' will be displayed. Otherwise, a
+    'COLDER' will be displayed. When user gets the integer, a congratulatory message will be
+    displayed along with the number of attempts.
+    '''
+    mylist = []
+    num = random.randint(1,100)
+    x = int(input('Pick a number between 1 and 100:'))
+    if abs(num - x) <= 10:
+        print('WARM!')
+        mylist.append(x)
+    else:
+        print('COLD!')
+        mylist.append(x)
+    while num != x:
+        x = int(input('Try again!:'))
+        clear_output()
+        mylist.append(x)
+        if abs(num - mylist[-1]) > abs(num - mylist[-2]):
+            print('COLDER!')
+        else:
+            print('WARMER!')
+    print(f'Well done! You took {len(mylist)} tries! The number was {num}')
