@@ -2,30 +2,97 @@ import random
 
 from IPython.display import clear_output
 
-def myfunc():
-    '''
-    DOCSTRING: User will be asked to input an integer in the range 1-100. User will be notified if 
-    inputed integer is 10 units or closer to a randomly selected integer by a 'WARM!' If the
-    numbers are further away, output will be 'COLD!' From there, user will input more integers and 
-    if said numbers are closer to the random integer, a 'WARMER' will be displayed. Otherwise, a
-    'COLDER' will be displayed. When user gets the integer, a congratulatory message will be
-    displayed along with the number of attempts.
-    '''
-    mylist = []
-    num = random.randint(1,100)
-    x = int(input('Pick a number between 1 and 100:'))
-    if abs(num - x) <= 10:
-        print('WARM!')
-        mylist.append(x)
-    else:
-        print('COLD!')
-        mylist.append(x)
-    while num != x:
-        x = int(input('Try again!:'))
-        clear_output()
-        mylist.append(x)
-        if abs(num - mylist[-1]) > abs(num - mylist[-2]):
-            print('COLDER!')
-        else:
-            print('WARMER!')
-    print(f'Well done! You took {len(mylist)} tries! The number was {num}')
+print('Welcome to guess the number!')
+
+# This section is to determine whether the user wants to play the game
+
+play = 'hehehe'
+
+while (play != True) and (play != False):
+	x = input('Do you wish to play the game? yes or no: ')
+	if x[0].lower() == 'y':
+		print('Great!\n')
+		print('Here are the rules, buddy:\nAn integer between the numbers 0 and 100 randomly selected, and it is your job to guess it.\nI will tell you if you are getting warmer, AKA closer, or colder, AKA farther.\nAt the end I will let you know how many turns it took you to win! Enjoy! ')
+		play = True
+	elif x[0].lower() == 'n':
+		print('Maybe next time then')
+		play = False
+	else:
+		print('I did not get that')
+		continue
+
+# This section is for when the user says yes to playing the game. This is the actual logic of the game.
+
+while play == True:
+
+	mylist = []
+	num = random.randint(0,100)
+
+# This section is to help the user select a number
+
+	goodnum = 'not ok'
+
+	while goodnum != 'ok':
+		try:
+			guess = int(input('What number would you like to try?: '))
+			mylist.append(guess)
+			goodnum = 'ok'
+		except:
+			print("I'm sorry, I didn't get that. Make sure you are inputing a whole number!")
+			continue
+
+	clear_output()
+
+	if abs(num - guess) <= 10:
+		print('Warm!')
+
+	else:
+		print('Cold!')
+
+	while num != guess:
+		clear_output()
+
+		goodnum2 = 'not ok'
+
+		while goodnum2 != 'ok':
+			try:
+				guess = int(input('Try again!: '))
+				mylist.append(guess)
+				goodnum2 = 'ok'
+			except:
+				print("I'm sorry, I didn't get that. Make sure you are inputing a whole number!")
+				continue
+
+# This is the warm-cold section
+
+		if abs(num - mylist[-1]) > abs(num - mylist[-2]):
+			print('Colder!')
+		elif abs(num - mylist[-1]) == abs(num - mylist[-2]):
+			print("Exact same temperature!")
+		elif (abs(num - mylist[-1]) < abs(num - mylist[-2])):
+			if (mylist[-1] != num):
+				print('Warmer!')
+			else:
+				pass
+
+	print(f'Well done! You took {len(mylist)} tries! The number was {num}')
+
+# This is a section to determine whether the user would like to play again.
+
+	z = 'just a temporary variable'
+
+	while (z[0] != 'y') and (z[0] != 'n'): 
+			z = input('Would you like to play again? yes or no: ')
+			if z[0].lower() == 'y':
+				play = True
+			elif z[0].lower() == 'n':
+				play = False
+			else:
+				print('I did not get that')
+				continue
+
+# This is just a goodbye message
+
+clear_output()
+
+print('Thanks for trying out this program!')
