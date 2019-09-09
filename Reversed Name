@@ -1,0 +1,11 @@
+import sys
+
+def reverse(first,second):
+	'''
+	This function takes a name, a last name, and reverses them
+	INPUT: A first name, and a last name
+	OUTPUT: A reversed first name, follored by a reversed last name
+	'''
+	return first[::-1].lower().capitalize() + ' ' + second[::-1].lower().capitalize()
+	
+print(f'Your name reversed is {reverse(sys.argv[1],sys.argv[2])}.')
